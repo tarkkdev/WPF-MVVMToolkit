@@ -4,9 +4,52 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMvvmProject"
-        mc:Ignorable="d"
-        Title="NBA Best Starting Players" Height="450" Width="800">
+        mc:Ignorable="d"        
+        Title="Best NBA Starter Players" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Menu Bar 0-->
+            <RowDefinition Height="Auto" />
+            <!-- Header 1-->
+            <RowDefinition Height="*" />
+            <!-- Players and Stats Views 2-->
+            <RowDefinition Height="Auto" />
+            <!-- Status Bar 3-->
+        </Grid.RowDefinitions>
 
+        <!-- Menu Bar 0-->
+        <Menu FontSize="15" Grid.Row="0">
+            <MenuItem Header="_Select View">
+                <MenuItem Header="_Players"/>
+                <MenuItem Header="_Stats"/>
+            </MenuItem>
+            <MenuItem Header="_Exit">
+                <MenuItem Header="_Close Application" />
+            </MenuItem>
+        </Menu>
+
+        <!-- Header 1-->
+        <Grid Grid.Row="1" Background="CornflowerBlue">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
+
+                <Image Source="/Images/logo-nba-256.png" Width="100" Margin="5" />
+
+                <TextBlock Text="NBA Players Application"
+                           FontSize="30"
+                           VerticalAlignment="Center"/>
+                <TextBlock Text="Version 1.0"
+                           FontSize="14"
+                           VerticalAlignment="Bottom"
+                           Margin="10 0 5 22"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Players and Stats Views 2-->
+
+        <!-- Status Bar 3-->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem FontSize="20" Content=" (c) WPF MVVM Project v1.0" HorizontalAlignment="Right" Margin="0 0 6 0"/>
+        </StatusBar>
     </Grid>
 </Window>

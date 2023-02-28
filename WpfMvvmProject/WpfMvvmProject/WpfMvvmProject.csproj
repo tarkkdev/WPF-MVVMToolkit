@@ -8,16 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
-    <Folder Include="Model\" />
-    <Folder Include="Data\" />
+    <None Remove="Images\logo-nba-256.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Command\" />
-    <Folder Include="Interface\" />
     <Folder Include="Converter\" />
     <Folder Include="Controls\" />
     <Folder Include="View\" />
     <Folder Include="Resources\" />
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\logo-nba-256.png" />
   </ItemGroup>
 
 </Project>
