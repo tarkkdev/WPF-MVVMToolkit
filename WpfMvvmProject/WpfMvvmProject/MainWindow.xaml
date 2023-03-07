@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMvvmProject"
         mc:Ignorable="d"        
-        Title="Best NBA Starter Players" Height="450" Width="800">
+        Title="NBA Players" Height="450" Width="800"
+        
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,7 +38,7 @@
 
                 <Image Source="/Images/logo-nba-256.png" Width="100" Margin="5" />
 
-                <TextBlock Text="NBA Players Application"
+                <TextBlock Text="NBA Player Stats Application"
                            FontSize="30"
                            VerticalAlignment="Center"/>
                 <TextBlock Text="Version 1.0"

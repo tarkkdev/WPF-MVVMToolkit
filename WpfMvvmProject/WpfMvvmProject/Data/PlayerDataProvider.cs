@@ -17,8 +17,8 @@ public class PlayerDataProvider : IPlayerDataProvider
 
         return new List<Player>()
         {
-            new Player{Id=1, FirstName="Michael", LastName="Jorda", Position="Shooting Gurad", IsRetired=true},
-            new Player{Id=2, FirstName="Shaquille", LastName="O'neal", Position="Center", IsRetired=true },
+            new Player{Id=1, FirstName="Michael", LastName="Jordan", Position="Shooting Gurad", IsRetired=true},
+            new Player{Id=2, FirstName="Shaquille", LastName="O'Neal", Position="Center", IsRetired=true },
             new Player{Id=3, FirstName="LeBron", LastName="James", Position="Power Forward", IsRetired=false},
             new Player{Id=4, FirstName="Kevin", LastName="Durant", Position="Small Forward", IsRetired=false},
             new Player{Id=5, FirstName="Magic", LastName="Johnson", Position="Point Guard", IsRetired=true}
