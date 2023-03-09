@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfMvvmProject"
+        xmlns:local="clr-namespace:WpfMvvmProject" 
+        xmlns:controls="clr-namespace:WpfMvvmProject.Controls" 
+        xmlns:view="clr-namespace:WpfMvvmProject.View"
         mc:Ignorable="d"        
-        Title="NBA Players" Height="450" Width="800"
-        
+        Title="NBA Players Stats Application" Height="450" Width="800"        
         WindowStartupLocation="CenterScreen"
         Background="Transparent">
-    <Grid>
+    <Grid>        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <!-- Menu Bar 0-->
@@ -33,22 +34,10 @@
         </Menu>
 
         <!-- Header 1-->
-        <Grid Grid.Row="1" Background="CornflowerBlue">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
-
-                <Image Source="/Images/logo-nba-256.png" Width="100" Margin="5" />
-
-                <TextBlock Text="NBA Player Stats Application"
-                           FontSize="30"
-                           VerticalAlignment="Center"/>
-                <TextBlock Text="Version 1.0"
-                           FontSize="14"
-                           VerticalAlignment="Bottom"
-                           Margin="10 0 5 22"/>
-            </StackPanel>
-        </Grid>
+        <controls:HeaderControl Grid.Row="1" />
 
         <!-- Players and Stats Views 2-->
+        <view:PlayersView Grid.Row="2" />
 
         <!-- Status Bar 3-->
         <StatusBar Grid.Row="3">
