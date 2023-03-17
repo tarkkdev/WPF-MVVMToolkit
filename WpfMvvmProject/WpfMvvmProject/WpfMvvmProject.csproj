@@ -15,7 +15,6 @@
     <Folder Include="Command\" />
     <Folder Include="Converter\" />
     <Folder Include="Resources\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfMvvmProject.Data;
+using WpfMvvmProject.ViewModel;
 
 namespace WpfMvvmProject.View
 {
@@ -20,9 +22,19 @@ namespace WpfMvvmProject.View
     /// </summary>
     public partial class PlayersView : UserControl
     {
+        private PlayersViewModel _viewModel;
+
         public PlayersView()
         {
             InitializeComponent();
+            _viewModel = new PlayersViewModel(new PlayerDataProvider());
+            DataContext = _viewModel;
+            Loaded += PlayersView_Loaded;
+        }
+
+        private async void PlayersView_Loaded(object sender, RoutedEventArgs e)
+        {
+            await _viewModel.LoadAsync();
         }
     }
 }
