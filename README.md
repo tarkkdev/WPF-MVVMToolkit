@@ -3,7 +3,22 @@
 ### WPF-MVVM application to test Model-View-ViewModel (MVVM) design pattern
 
 - Goal is to separate UI controls and program logic
-- Implemetation doesn't use any toolkit or library such as MVVM Toolkit or Prism framework, plan to use these later and update the project  
+- Implemetation doesn't use any toolkit or library such as MVVM Toolkit or Prism framework, plan to use these later and update the project
+
+#### Notes
+
+* To enable xaml binding errors at Visual Studio 2022:  
+  > Debug -> Windows -> XAML Binding Failures  
+
+* To Access the View Model properties from View:  
+  > xmlns:viewModel="clr-namespace:ProjectName.ViewModel"  
+  ```xaml
+    xmlns:viewModel="clr-namespace:WpfMvvmProject.ViewModel"
+  ```  
+  > d:DataContext="\{d:DesignInstance Type=viewModel:ViewModelName\}"
+  ```xaml
+    d:DataContext="{d:DesignInstance Type=viewModel:PlayersViewModel}"
+  ```  
 
 #### Progress
 
@@ -28,6 +43,31 @@
    > At PlayersView, bind FirstName textbox *Text* to SelectedPlayer.FirstName  
    > At PlayersView, bind LastName textbox *Text* to SelectedPlayer.LastName  
    > At PlayersView, bind Position textbox *Text* to SelectedPlayer.Position  
-   > At PlayersView, bind Player Retired checkbox *IsChecked* to SelectedPlayer.IsRetired  
+   > At PlayersView, bind Player Retired checkbox *IsChecked* to SelectedPlayer.IsRetired
+   4.2 PlayersViewModel  
+   > At PlayersViewModel class, class implements *INotifyPropertyChanged* (System.ComponentModel)
+     ```c#
+       public class PlayersViewModel : INotifyPropertyChanged  
+     ```  
+   > At PlayersViewModel class, *PropertyChangedEventHandler* event implementation of *INotifyPropertyChanged*  
+   > At PlayersViewModel class, added *RaisePropertyChanged* method  
+     ```c#
+       private void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
+       {
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+       }
+     ``` 
+   >  [CallerMethodName] (System.Runtime.CompilerServices) allows omiting Property Name when *RaisePropertyChanged* method is called
+   ```c#
+     public Player? SelectedPlayer 
+     { 
+        get => _selectedPlayer;
+        set
+        {
+            _selectedPlayer = value;
+            RaisePropertyChanged(/*nameof(SelectedPlayer)*/);
+        }
+     }
+   ```
    
    
