@@ -5,24 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfMvvmProject.View"
              xmlns:viewModel="clr-namespace:WpfMvvmProject.ViewModel"
+             xmlns:converter="clr-namespace:WpfMvvmProject.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=viewModel:PlayersViewModel}">
+    <UserControl.Resources>
+        <converter:NavigationOptionToGridColumnConverter
+            x:Key="NavOptionToGridColConv" />
+    </UserControl.Resources>
     <Grid Background="#777">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid Grid.Column="{Binding NavigationOption, Converter={StaticResource NavOptionToGridColConv}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Add Player" Width="85" Margin="5 0 5 0" Padding="3"/>
-                <Button Content="Delete Player" Width="85" Margin="0 0 5 0" Padding="3"/>
-                <Button Content="Switch View" Width="85" Margin="0 0 5 0" Padding="3"/>
+                <Button Content="Add Player" 
+                        Width="85" 
+                        Margin="5 0 5 0" 
+                        Padding="3"
+                        Command="{Binding AddPlayerCommand}"/>
+                <Button Content="Delete Player" 
+                        Width="85" 
+                        Margin="0 0 5 0" 
+                        Padding="3"
+                        Command="{Binding DeletePlayerCommand}"/>
+                <Button Content="Switch View" 
+                        Width="85" 
+                        Margin="0 0 5 0" 
+                        Padding="3"
+                        Command="{Binding SwitchNavigationCommand}"/>
             </StackPanel>
             <ListView Grid.Row="1"
                       ItemsSource="{Binding Players}"
