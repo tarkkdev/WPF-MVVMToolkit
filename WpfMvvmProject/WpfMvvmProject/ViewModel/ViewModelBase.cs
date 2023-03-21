@@ -16,5 +16,8 @@ namespace WpfMvvmProject.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual Task LoadAsync() => Task.CompletedTask;
+        
     }
 }

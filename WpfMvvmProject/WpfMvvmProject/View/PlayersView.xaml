@@ -12,6 +12,12 @@
     <UserControl.Resources>
         <converter:NavigationOptionToGridColumnConverter
             x:Key="NavOptionToGridColConv" />
+        <DataTemplate x:Key="PlayerListDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding FirstName}" FontWeight="Bold" />
+                <TextBlock Text="{Binding LastName}" Margin="5 0 0 0" />
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid Background="#777">
         <Grid.ColumnDefinitions>
@@ -19,7 +25,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="{Binding NavigationOption, Converter={StaticResource NavOptionToGridColConv}}">
+        <Grid Grid.Column="{Binding NavigationOption, Converter={StaticResource NavOptionToGridColConv}}"
+              Width="275">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -43,8 +50,8 @@
             </StackPanel>
             <ListView Grid.Row="1"
                       ItemsSource="{Binding Players}"
-                      SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}"
-                      DisplayMemberPath="FirstName"/>
+                      ItemTemplate="{StaticResource PlayerListDataTemplate}"
+                      SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}"/>
         </Grid>
         <StackPanel Grid.Column="1" Margin="10 30 10 10"
                     Visibility="{Binding IsPlayerSelected, Converter={StaticResource BooleanToVisibilityConv}}">

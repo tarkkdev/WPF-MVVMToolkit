@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfMvvmProject.Data;
-using WpfMvvmProject.ViewModel;
 
 namespace WpfMvvmProject.View
 {
     /// <summary>
-    /// Interaction logic for PlayersView.xaml
+    /// Interaction logic for PlayerStatsView.xaml
     /// </summary>
-    public partial class PlayersView : UserControl
+    public partial class PlayerStatsView : UserControl
     {
-        public PlayersView()
+        public PlayerStatsView()
         {
-            InitializeComponent();            
-        }        
+            InitializeComponent();
+        }
     }
 }
