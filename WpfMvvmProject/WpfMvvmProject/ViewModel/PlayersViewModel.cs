@@ -40,10 +40,12 @@ namespace WpfMvvmProject.ViewModel
             {
                 _selectedPlayer = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsPlayerSelected)); 
                 DeletePlayerCommand?.RaiseCanExecuteChanged();
             }
         }
 
+        public bool IsPlayerSelected => SelectedPlayer is not null;
         public NavigationOption NavigationOption 
         { 
             get => _navigationOption;

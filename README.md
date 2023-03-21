@@ -181,5 +181,38 @@
             DeletePlayerCommand?.RaiseCanExecuteChanged();
         }
     }
+    ```  
+17. Added Resources directory for global location for all resource files  
+18. Added Converter resource for Boolean to Visibility  
+    ```xaml
+    <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+       <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConv"/>
+    </ResourceDictionary>
+    ```  
+19. Added Brushes resource
+    ```xaml
+    <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="CornflowerBlue"/>
+        <SolidColorBrush x:Key="HeaderForegroundBrush" Color="White"/>    
+    </ResourceDictionary>
     ```
+19. At PlayersView added *BooleanToVisibilityConverter*
+    ```xaml
+      <StackPanel Grid.Column="1" Margin="10 30 10 10"
+                    Visibility="{Binding IsPlayerSelected, Converter={StaticResource BooleanToVisibilityConv}}">
+    ```  
+20. At HeaderControl changed brushes to use from global resources  
+21. At App.xaml created Resource Dictionary and merged both Brushes and Converters resources
+    ```xaml
+       <Application.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/Resources/Brushes.xaml"/>
+                    <ResourceDictionary Source="/Resources/Converters.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+       </Application.Resources>
+    ```  
    
