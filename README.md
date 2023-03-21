@@ -215,4 +215,55 @@
             </ResourceDictionary>
        </Application.Resources>
     ```  
+22. Added *PlayerStatsView*  
+23. Added *PlayerStatsViewModel*  
+24. Added *MainViewModel* class to handle switching between Player View and Player Stats View  
+    >  Constructor expects both View Models - **PlayersViewModel** and **PlayerStatsViewModel**  
+    ```c#
+       public MainViewModel(PlayersViewModel playersViewModel,
+            PlayerStatsViewModel playerStatsViewModel)
+        {
+            PlayersViewModel = playersViewModel;
+            PlayerStatsViewModel = playerStatsViewModel;
+            SelectedViewModel = PlayersViewModel;
+            SelectViewModelCommand = new DelegateCommand(SelectViewModel);
+        }
+    ```  
+    > SelectedViewModel property set to PlayersViewModel but will change from MainWindow  
+    > *SelectedViewModelCommand* will be called based on Menu selection Command and CommandParameters  
+    > *SelectViewModel* method passed to SelectedViewModelCommand of DelegateCommand as Action parameter  
+    ```c#
+        private async void SelectViewModel(object? parameter)
+        {
+            SelectedViewModel = parameter as ViewModelBase;
+            await LoadAsync();
+        }
+    ```  
+25. At *MainWindow.xaml* created DataTemplates for each View based on selected ViewModel
+    ```xaml
+        <Window.Resources>
+            <DataTemplate DataType="{x:Type viewModel:PlayersViewModel}">
+                <view:PlayersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:PlayerStatsViewModel}">
+                <view:PlayerStatsView/>
+            </DataTemplate>
+        </Window.Resources>
+    ```  
+    > Menu commands to switch between Players and Player Stats views
+    ```xaml
+        <MenuItem Header="_Select View">
+                <MenuItem Header="_Players"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding PlayersViewModel}"/>
+                <MenuItem Header="_Stats"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding PlayerStatsViewModel}"/>
+        </MenuItem>
+    ```  
+    > Changed to ContentControl to show Selected View from Menu selection
+    ```xaml
+        <ContentControl Grid.Row="2" Content="{Binding SelectedViewModel}"/>
+    ```  
+
    

@@ -58,7 +58,7 @@ namespace WpfMvvmProject.ViewModel
         public DelegateCommand AddPlayerCommand { get; }
         public DelegateCommand SwitchNavigationCommand { get; }
         public DelegateCommand DeletePlayerCommand { get; }
-        public async Task LoadAsync()
+        public async override Task LoadAsync()
         {
             if (Players.Any())
             {

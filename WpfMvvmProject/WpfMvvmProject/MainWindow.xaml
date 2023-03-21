@@ -6,10 +6,20 @@
         xmlns:local="clr-namespace:WpfMvvmProject" 
         xmlns:controls="clr-namespace:WpfMvvmProject.Controls" 
         xmlns:view="clr-namespace:WpfMvvmProject.View"
+        xmlns:viewModel="clr-namespace:WpfMvvmProject.ViewModel"
         mc:Ignorable="d"        
-        Title="NBA Players Stats Application" Height="450" Width="800"        
+        Title="NBA Players Stats Application" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
         WindowStartupLocation="CenterScreen"
         Background="Transparent">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:PlayersViewModel}">
+            <view:PlayersView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:PlayerStatsViewModel}">
+            <view:PlayerStatsView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,8 +35,12 @@
         <!-- Menu Bar 0-->
         <Menu FontSize="15" Grid.Row="0">
             <MenuItem Header="_Select View">
-                <MenuItem Header="_Players"/>
-                <MenuItem Header="_Stats"/>
+                <MenuItem Header="_Players"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding PlayersViewModel}"/>
+                <MenuItem Header="_Stats"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding PlayerStatsViewModel}"/>
             </MenuItem>
             <MenuItem Header="_Exit">
                 <MenuItem Header="_Close Application" />
@@ -37,7 +51,7 @@
         <controls:HeaderControl Grid.Row="1" />
 
         <!-- Players and Stats Views 2-->
-        <view:PlayersView Grid.Row="2" />
+        <ContentControl Grid.Row="2" Content="{Binding SelectedViewModel}"/>
 
         <!-- Status Bar 3-->
         <StatusBar Grid.Row="3">

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfMvvmProject.Data;
+using WpfMvvmProject.ViewModel;
 
 namespace WpfMvvmProject
 {
@@ -20,9 +22,20 @@ namespace WpfMvvmProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MainViewModel _viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+            _viewModel = new MainViewModel(new PlayersViewModel(new PlayerDataProvider()),
+                new PlayerStatsViewModel());
+            DataContext = _viewModel;
+            Loaded += MainWindow_Loaded;
+        }
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            await _viewModel.LoadAsync();
         }
     }
 }
