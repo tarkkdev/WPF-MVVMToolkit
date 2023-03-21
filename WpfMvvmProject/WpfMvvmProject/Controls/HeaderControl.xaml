@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:WpfMvvmProject.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="CornflowerBlue">
+    <Grid Background="{StaticResource HeaderBackgroundBrush}">
         <StackPanel Orientation="Horizontal"                         
                         HorizontalAlignment="Center">
             <Image Source="../Images/logo-nba-256.png" Width="100" Margin="5" />
             <TextBlock Text="NBA Player Stats"
                            FontSize="30"
                            VerticalAlignment="Center"
-                           Foreground="White"/>
+                           Foreground="{StaticResource HeaderForegroundBrush}"/>
             <TextBlock Text="Version 1.0"
                            FontSize="12"                            
                            VerticalAlignment="Bottom"

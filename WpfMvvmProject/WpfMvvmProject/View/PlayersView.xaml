@@ -46,7 +46,8 @@
                       SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}"
                       DisplayMemberPath="FirstName"/>
         </Grid>
-        <StackPanel Grid.Column="1" Margin="10 30 10 10">
+        <StackPanel Grid.Column="1" Margin="10 30 10 10"
+                    Visibility="{Binding IsPlayerSelected, Converter={StaticResource BooleanToVisibilityConv}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
