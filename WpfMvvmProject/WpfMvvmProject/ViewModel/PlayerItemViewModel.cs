@@ -7,7 +7,7 @@ using WpfMvvmProject.Model;
 
 namespace WpfMvvmProject.ViewModel
 {
-    public class PlayerItemViewModel : ViewModelBase
+    public class PlayerItemViewModel : ValidationViewModelBase
     {
         private readonly Player _model;
 
@@ -25,6 +25,14 @@ namespace WpfMvvmProject.ViewModel
             { 
                 _model.FirstName = value;
                 RaisePropertyChanged();
+                if(string.IsNullOrEmpty(_model.FirstName)) 
+                {
+                    AddError("First Name is required");
+                }
+                else
+                {
+                    ClearError();  
+                }
             }
         }
 
@@ -36,6 +44,14 @@ namespace WpfMvvmProject.ViewModel
             { 
                 _model.LastName = value;
                 RaisePropertyChanged();
+                if (string.IsNullOrEmpty(_model.LastName))
+                {
+                    AddError("Last Name is required");
+                }
+                else
+                {
+                    ClearError();
+                }
             }
         }
 
@@ -46,6 +62,14 @@ namespace WpfMvvmProject.ViewModel
             {
                 _model.Position = value;
                 RaisePropertyChanged();
+                if (string.IsNullOrEmpty(_model.Position))
+                {
+                    AddError("Player postion is required");
+                }
+                else
+                {
+                    ClearError();
+                }
             }
         }
 
