@@ -43,7 +43,8 @@
                           CommandParameter="{Binding PlayerStatsViewModel}"/>
             </MenuItem>
             <MenuItem Header="_Exit">
-                <MenuItem Header="_Close Application" />
+                <MenuItem Header="_Close Application" 
+                          Command="{Binding ExitApplicationCommand}"/>
             </MenuItem>
         </Menu>
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WpfMvvmProject.Command;
 
 namespace WpfMvvmProject.ViewModel
@@ -18,8 +19,8 @@ namespace WpfMvvmProject.ViewModel
             PlayerStatsViewModel = playerStatsViewModel;
             SelectedViewModel = PlayersViewModel;
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
-        }
-              
+            ExitApplicationCommand = new DelegateCommand(ExitApplication);
+        }        
 
         public ViewModelBase? SelectedViewModel
 		{
@@ -35,6 +36,8 @@ namespace WpfMvvmProject.ViewModel
 
         public DelegateCommand SelectViewModelCommand { get; }
 
+        public DelegateCommand ExitApplicationCommand { get; set; }
+
         public async override Task LoadAsync() 
         {
             if(SelectedViewModel is not null)
@@ -47,6 +50,11 @@ namespace WpfMvvmProject.ViewModel
         {
             SelectedViewModel = parameter as ViewModelBase;
             await LoadAsync();
+        }
+
+        private void ExitApplication(object? obj)
+        {
+            Application.Current.Shutdown();
         }
 
     }
