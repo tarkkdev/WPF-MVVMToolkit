@@ -13,7 +13,7 @@ namespace WpfMvvmProject.Data
         public async Task<IEnumerable<PlayerStats>?> GetPlayerStatsAsync()
         {
             //simulate long running task
-            await Task.Delay(1000);
+            await Task.Delay(100);
 
             return new List<PlayerStats>()
             {

@@ -13,7 +13,7 @@ public class PlayerDataProvider : IPlayerDataProvider
     public async Task<IEnumerable<Player>?> GetPlayerDataAsync()
     {
         //simulate long running task
-        await Task.Delay(1000);
+        await Task.Delay(100);
 
         return new List<Player>()
         {
