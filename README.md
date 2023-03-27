@@ -301,5 +301,144 @@
             }
         }
     ```  
+27. Data Validation  
+    > Added new **ValidationViewModelBase** class that implements *INotifyDataErrorInfo (System.ComponentModel)* and derived from *ViewModelBase*    
+    > Added a new dictionary to store each error by property name
+    ```c#
+        private readonly Dictionary<string, List<string>> _errorsByPropertyName = new();
+    ```  
+    > If there are any errors *HasError* will return true:  
+    ```c#
+        public bool HasErrors => _errorsByPropertyName.Any();
+    ```  
+    > *GetErrors* returns the error based on property  
+    ```c#
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            return propertyName is not null && _errorsByPropertyName.ContainsKey(propertyName)
+                ? _errorsByPropertyName[propertyName] : Enumerable.Empty<string>();
+        }
+    ```  
+    > Added virtual *OnErrorsChanged* method that will be called when there is an error
+    ```c#
+        protected virtual void OnErrorsChanged(DataErrorsChangedEventArgs args) 
+        {
+            ErrorsChanged?.Invoke(this, args);
+        }
+    ```  
+    > Added AddError to add error to dictionary and ClearError to remove error from dictionarty and to invoke *OnErrorsChanged* and Raise *HasError*  
+    ```c#
+        protected void AddError(string error, [CallerMemberName] string? propertyName = null)
+        {
+            if (propertyName is null) return;
+
+
+            if (!_errorsByPropertyName.ContainsKey(propertyName))
+            {
+                _errorsByPropertyName[propertyName] = new List<string>();
+            }
+
+            if (!_errorsByPropertyName[propertyName].Contains(error)) 
+            {
+                _errorsByPropertyName[propertyName].Add(error);
+                OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
+                RaisePropertyChanged(nameof(HasErrors));
+            }
+        }
+
+        protected void ClearError([CallerMemberName] string? propertyName = null)
+        {
+            if(propertyName is null) return;
+
+            if(_errorsByPropertyName.ContainsKey(propertyName))
+            {
+                _errorsByPropertyName.Remove(propertyName);
+                OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
+                RaisePropertyChanged(nameof(HasErrors));
+            }
+        }
+    ```  
+    > Update **PlayerItemViewModel** class to derive from *ValidationViewModelBase*  
+    > At properties added Error conditions and call *AddError* and *ClearError* methods from base Validation class:
+      ```c#
+        public string? FirstName
+        {
+            get => _model.FirstName;
+            set 
+            { 
+                _model.FirstName = value;
+                RaisePropertyChanged();
+                if(string.IsNullOrEmpty(_model.FirstName)) 
+                {
+                    AddError("First Name is required");
+                }
+                else
+                {
+                    ClearError();  
+                }
+            }
+        }
+      ```  
+    > At Styles.xaml for TextBox Controls added Trigger for *Validation.HasError* property and if set to True  
+    > Set Background to Red  
+    > Set Margin for below of Textbox to enable space for error message  
+    > Set ToolTip for Error Message  
+    > Set *Validation.ErrorTemplate* to show Error Message below the TextBox  
+    ```xaml
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <Style TargetType="ToolTip">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Style TargetType="TextBox" x:Key="TextBoxBaseStyle">
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+            <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+                <Setter Property="Background" Value="#555555"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="placeholder"/>
+                                <TextBlock Foreground="Red" 
+                                           Text="{Binding ElementName=placeholder,
+                                                 Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" 
+                                           Margin="3 0 0 0"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="DimGray"/>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="Background" Value="Red" />
+                        <Setter Property="Margin" Value="0 0 0 20" />
+                        <Setter Property="ToolTip"
+                                Value="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors)[0].ErrorContent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>    
+        </ResourceDictionary>
+    ```
+    > At PlayersView.xaml to not show the errors at list box text boxes, set *ValidationsOnNotifyDataErrors* to false  
+      ```xaml
+         <UserControl.Resources>
+            <converter:NavigationOptionToGridColumnConverter x:Key="NavOptionToGridColConv" />
+            <DataTemplate x:Key="PlayerListDataTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding FirstName, ValidatesOnNotifyDataErrors=False}" FontWeight="Bold" />
+                    <TextBlock Text="{Binding LastName, ValidatesOnNotifyDataErrors=False}" Margin="5 0 0 0" />
+                </StackPanel>
+            </DataTemplate>
+        </UserControl.Resources>
+      ```
+        
 
    
