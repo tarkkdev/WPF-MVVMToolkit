@@ -1,0 +1,62 @@
+﻿<Window x:Class="WpfMvvmProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMvvmProject" 
+        xmlns:controls="clr-namespace:WpfMvvmProject.Controls" 
+        xmlns:view="clr-namespace:WpfMvvmProject.View"
+        xmlns:viewModel="clr-namespace:WpfMvvmProject.ViewModel"
+        mc:Ignorable="d"        
+        Title="NBA Players Stats Application" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:PlayersViewModel}">
+            <view:PlayersView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:PlayerStatsViewModel}">
+            <view:PlayerStatsView/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Menu Bar 0-->
+            <RowDefinition Height="Auto" />
+            <!-- Header 1-->
+            <RowDefinition Height="*" />
+            <!-- Players and Stats Views 2-->
+            <RowDefinition Height="Auto" />
+            <!-- Status Bar 3-->
+        </Grid.RowDefinitions>
+
+        <!-- Menu Bar 0-->
+        <Menu FontSize="15" Grid.Row="0">
+            <MenuItem Header="_Select View">
+                <MenuItem Header="_Players"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding PlayersViewModel}"/>
+                <MenuItem Header="_Stats"
+                          Command="{Binding SelectViewModelCommand}"
+                          CommandParameter="{Binding PlayerStatsViewModel}"/>
+            </MenuItem>
+            <MenuItem Header="_Exit">
+                <MenuItem Header="_Close Application" 
+                          Command="{Binding ExitApplicationCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Header 1-->
+        <controls:HeaderControl Grid.Row="1" />
+
+        <!-- Players and Stats Views 2-->
+        <ContentControl Grid.Row="2" Content="{Binding SelectedViewModel}"/>
+
+        <!-- Status Bar 3-->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem FontSize="20" Content=" (c) WPF MVVM Project v1.0" HorizontalAlignment="Right" Margin="0 0 6 0"/>
+        </StatusBar>
+    </Grid>
+</Window>
