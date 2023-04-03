@@ -9,7 +9,7 @@ using WpfMvvmProject.Model;
 
 namespace WpfMvvmProject.ViewModel
 {
-    public class PlayerStatsViewModel : ViewModelBase
+    public partial class PlayerStatsViewModel : ViewModelBase
     {
         private readonly IPlayerStatsProvider _playerStatsProvider;
 

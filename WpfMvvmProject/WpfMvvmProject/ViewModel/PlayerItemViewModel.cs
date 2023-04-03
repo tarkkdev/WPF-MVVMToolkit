@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +8,11 @@ using WpfMvvmProject.Model;
 
 namespace WpfMvvmProject.ViewModel
 {
-    public class PlayerItemViewModel : ValidationViewModelBase
+    public partial class PlayerItemViewModel : ValidationViewModelBase
     {
         private readonly Player _model;
+
+        private string? _firstName;
 
         public PlayerItemViewModel(Player model)
         {
@@ -17,14 +20,15 @@ namespace WpfMvvmProject.ViewModel
         }
 
         public int Id => _model.Id;
-
+        
         public string? FirstName
         {
             get => _model.FirstName;
             set 
-            { 
-                _model.FirstName = value;
-                RaisePropertyChanged();
+            {   
+                SetProperty(ref _firstName, value);
+                //_model.FirstName = value;
+                //RaisePropertyChanged();
                 if(string.IsNullOrEmpty(_model.FirstName)) 
                 {
                     AddError("First Name is required");
@@ -43,7 +47,7 @@ namespace WpfMvvmProject.ViewModel
             set 
             { 
                 _model.LastName = value;
-                RaisePropertyChanged();
+                //RaisePropertyChanged();
                 if (string.IsNullOrEmpty(_model.LastName))
                 {
                     AddError("Last Name is required");
@@ -61,7 +65,7 @@ namespace WpfMvvmProject.ViewModel
             set 
             {
                 _model.Position = value;
-                RaisePropertyChanged();
+                //RaisePropertyChanged();
                 if (string.IsNullOrEmpty(_model.Position))
                 {
                     AddError("Player postion is required");
@@ -79,7 +83,7 @@ namespace WpfMvvmProject.ViewModel
             set
             {
                 _model.IsRetired = value;
-                RaisePropertyChanged();
+                //RaisePropertyChanged();
             }
         }
 
