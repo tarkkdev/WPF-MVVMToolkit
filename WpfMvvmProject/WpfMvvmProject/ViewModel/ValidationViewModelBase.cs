@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WpfMvvmProject.ViewModel
 {
-    public class ValidationViewModelBase : ViewModelBase, INotifyDataErrorInfo
+    public partial class ValidationViewModelBase : ViewModelBase, INotifyDataErrorInfo
     {
         private readonly Dictionary<string, List<string>> _errorsByPropertyName = new();
         public bool HasErrors => _errorsByPropertyName.Any();
@@ -41,7 +41,7 @@ namespace WpfMvvmProject.ViewModel
             {
                 _errorsByPropertyName[propertyName].Add(error);
                 OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
-                RaisePropertyChanged(nameof(HasErrors));
+                //RaisePropertyChanged(nameof(HasErrors));
             }
         }
 
@@ -53,7 +53,7 @@ namespace WpfMvvmProject.ViewModel
             {
                 _errorsByPropertyName.Remove(propertyName);
                 OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
-                RaisePropertyChanged(nameof(HasErrors));
+                //RaisePropertyChanged(nameof(HasErrors));
             }
         }
     }

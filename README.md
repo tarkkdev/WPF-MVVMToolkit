@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # WPF-MVVMToolkit
 Repository to implement WPF MVVM pattern using MVVM Toolkit 
 =======
@@ -23,6 +22,8 @@ Repository to implement WPF MVVM pattern using MVVM Toolkit
     d:DataContext="{d:DesignInstance Type=viewModel:PlayersViewModel}"
   ```  
 
-#### Progress
+#### Progress  
 
+1. Install *CommunityTookkit.Mvvm* from Nuget Package manager  
+2. 
 
