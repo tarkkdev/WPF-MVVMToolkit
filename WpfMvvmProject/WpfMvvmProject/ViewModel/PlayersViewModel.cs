@@ -1,21 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using WpfMvvmProject.Command;
 using WpfMvvmProject.Enum;
 using WpfMvvmProject.Interface;
 using WpfMvvmProject.Model;
 
 namespace WpfMvvmProject.ViewModel
-{    
+{
     public partial class PlayersViewModel : ViewModelBase
     {
         private readonly IPlayerDataProvider _playerDataProvider;
@@ -24,6 +17,7 @@ namespace WpfMvvmProject.ViewModel
         [NotifyPropertyChangedFor(nameof(IsPlayerSelected))]
         [NotifyCanExecuteChangedFor(nameof(DeletePlayerCommand))]
         private PlayerItemViewModel? _selectedPlayer;
+        
         [ObservableProperty]
         private NavigationOption _navigationOption;
         
