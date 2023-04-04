@@ -1,11 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using WpfMvvmProject.Command;
 
 namespace WpfMvvmProject.ViewModel
 {
@@ -18,9 +13,7 @@ namespace WpfMvvmProject.ViewModel
         {
             PlayersViewModel = playersViewModel;
             PlayerStatsViewModel = playerStatsViewModel;
-            SelectedViewModel = PlayersViewModel;
-            //SelectViewModelCommand = new DelegateCommand(SelectViewModel);
-            //ExitApplicationCommand = new DelegateCommand(ExitApplication);
+            SelectedViewModel = PlayersViewModel;            
         }        
 
         public ViewModelBase? SelectedViewModel
@@ -28,17 +21,11 @@ namespace WpfMvvmProject.ViewModel
 			get =>_selectedViewModel;
 			set 
 			{
-                SetProperty(ref _selectedViewModel, value);
-				//_selectedViewModel = value; 
-				//RaisePropertyChanged();
+                SetProperty(ref _selectedViewModel, value);				
 			}
 		}
         public PlayersViewModel PlayersViewModel { get; }
         public PlayerStatsViewModel PlayerStatsViewModel { get; }
-
-        //public DelegateCommand SelectViewModelCommand { get; }
-
-        //public DelegateCommand ExitApplicationCommand { get; set; }
 
         public async override Task LoadAsync() 
         {
