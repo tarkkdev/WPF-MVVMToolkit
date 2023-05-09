@@ -61,7 +61,7 @@ Repository to implement WPF MVVM pattern using MVVM Toolkit
 			get =>_selectedViewModel;
 			set 
 			{
-                SetProperty(ref _selectedViewModel, value);				
+                		SetProperty(ref _selectedViewModel, value);				
 			}
 		}
    ```  
@@ -135,7 +135,7 @@ Repository to implement WPF MVVM pattern using MVVM Toolkit
             }
         }
    ```  
-8.  At Add.xaml update and streamline Dependency Injection (DI) implementation  
+8.  At App.xaml update and streamline Dependency Injection (DI) implementation  
     ```c#
         public sealed partial class App : Application
         {
